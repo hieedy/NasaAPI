@@ -6,7 +6,7 @@ from datetime import date
 # Create your views here. 
 
 def fetchAPOD(date_input = None):
-    api_key = ''
+    api_key = 'your_api_key'
     url = 'https://api.nasa.gov/planetary/apod'
     pp = PrettyPrinter()
 
@@ -39,7 +39,7 @@ def apod(request):
 
 ########EPIC##############
 def fetchEpic(date_input = None):
-    api_key = ''
+    api_key = 'your api key'
     url = 'https://api.nasa.gov/EPIC/api/natural/date'
 
     print(date_input)
