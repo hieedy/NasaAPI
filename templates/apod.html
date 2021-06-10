@@ -1,0 +1,136 @@
+<!-- Author: Sourabh Sharma 
+    email: sureshsharmacacms@gmail.com
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding :0px;
+            margin: 0px;
+            box-sizing: border-box;
+        }
+        body{
+            padding: 20px;
+            background: #DA22FF;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #9733EE, #DA22FF);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #9733EE, #DA22FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+        }
+        .container{
+            width: 80vw;
+           margin: auto;
+           text-align: center;
+        }
+        
+        .imageSection{
+            width: 60vw;
+            height: 50vh;
+            margin: auto;
+            margin-top: 10px;
+        }
+        form{
+            margin-top: 20px;
+        }
+        input{
+            width: 50%;
+            padding: 12px 20px;
+
+        }
+        button[type='submit']{
+            width:80px;
+            height: 50px;
+            font-weight: 500;
+
+        }
+        h1{
+            color: white;
+         
+            margin-bottom: 20px;
+        }
+
+        .subdetails{
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            color: white
+        }
+
+        article{
+            color: white;
+            text-align: justify;
+            margin-top: 20px;
+        }
+        article h1{
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+ 
+
+    <div class="container">
+        <h1>Astronomy Picture of the Day  </h1>
+       
+        <div class="subdetails">
+            <div>Date: {{data.date}}</div> 
+            {% if data.copyright %}
+                <div>Copyright: &copy;{{data.copyright}} </div>
+            {% else %}
+            <div>Copyright: No Copyright &copy;</div>
+            {% endif %}       
+        </div>
+        <hr>
+        <header class="imageSection">
+            <img src="{{data.url}}"  height='100%' width='100%' alt="">
+        </header>
+
+        <form action="" method = 'POST'>
+            {% csrf_token %}
+            <input type="date" name='date_of_apod' id='date_of_apod'>
+            <button type="submit">Search</button>
+        </form>
+
+        <article class="article">
+            <h1>{{data.title}}</h1>
+            <section class="description">
+                {{data.explanation}}
+            </section>
+        </article>
+
+        
+    </div>
+    
+    
+<script>
+    var date_of_apod  = document.getElementById('date_of_apod');
+
+    let today_date = new Date();
+    console.log(today_date);
+    let year = today_date.getFullYear();
+    let month = today_date.getMonth()+1; // months start from 0 in js
+    let day = today_date.getDate();
+
+    if(day<10){
+        day = '0'+day;
+    }
+    if(month<10){
+        month = '0'+month;
+    }
+    let result = year+'-'+month+'-'+day;
+    console.log(result)
+    date_of_apod.max = result;
+
+
+
+
+</script>
+
+</body>
+</html>

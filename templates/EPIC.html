@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="{% static 'css/lightbox.min.css' %}">
+    <title>EPIC(Earth Polychromatic Imaging Camera)</title>
+    <script src="{% static 'js/lightbox-plus-jquery.min.js' %}"></script>
+    <style>
+        *{
+            margin: 0px;
+            padding:0px;
+            box-sizing: border-box;
+        }
+
+        body{
+            padding: 10px 20px;
+            background-color: #131313;
+            color: white;
+        }
+        .container > header > h1{
+            width: 50%;
+            margin: 10px auto;
+
+        }
+
+        
+        .container > header > p{
+            line-height: 20px;
+            word-spacing: 3px;
+            letter-spacing: 2px;
+        }
+        .container > .section1 > h1, form{
+            text-align: center;
+            margin: 20px auto;
+        }
+
+        input[type='date']{
+            width:40%;
+            padding: 10px;
+            border-radius: 20px;
+        }
+        input[type='submit']{
+            
+            padding: 10px;
+        }
+        img{
+            margin: 10px;
+        }
+        a{
+            text-decoration: none;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Earth Polychromatic Imaging Camera</h1>
+            <p>This page provides information on the daily imagery collected by DSCOVR's Earth Polychromatic Imaging Camera (EPIC) instrument. Uniquely positioned at the Earth-Sun Lagrange point, EPIC provides full disc imagery of the Earth and captures unique perspectives of certain astronomical events such as lunar transits using a 2048x2048 pixel CCD (Charge Coupled Device) detector coupled to a 30-cm aperture Cassegrain telescope.</p>
+        </header>
+        <hr>
+        <div class="section1">
+            <h1>Image Gallery <small>Date: {{date|join:'-'}}</small>  </h1>
+            <form action="" method = 'POST'>
+                {% csrf_token %}
+                <input type="date" name='date'>
+                <input type="submit" value="Search">
+            </form>
+        </div>
+        <div class="section2">
+           
+            {% for image in images %}
+
+                <a href="https://epic.gsfc.nasa.gov/archive/natural/{{date.0}}/{{date.1}}/{{date.2}}/jpg/{{image.img}}.jpg" target="_blank" data-lightbox ='mygallery' data-title = '{{image.caption}} Time: {{image.time}}'>
+                    <img src='https://epic.gsfc.nasa.gov/archive/natural/{{date.0}}/{{date.1}}/{{date.2}}/thumbs/{{image.img}}.jpg' alt="">
+                    
+                </a>
+       
+                    
+            
+            {% endfor %}
+
+        </div>
+    </div>
+    
+</body>
+</html>
